@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  
+  persistance_db:
+    container_name: nlw_auction_postgresql
+    image: postgres:16.1-bullseye
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: nlwAuctionP455
+      POSTGRES_DB: nlw_auction_db
+      POSTGRES_USER: nlw_auction_user
+    ports:
+      - 8000:5432
+    volumes:
+      - ./database/persistance:/var/lib/postgresql
+
+  cache_db:
+    container_name: nlw_auction_redis
+    image: redis:7.0.15
+    restart: always
+    # environment:
+    #   - aa
+    ports:
+      - 8001:6379
+    volumes:
+      - ./database/cache:/data

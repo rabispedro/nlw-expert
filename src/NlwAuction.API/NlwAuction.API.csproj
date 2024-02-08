@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NlwAuction.Application\NlwAuction.Application.csproj" />
+    <ProjectReference Include="..\NlwAuction.Infrastructure\NlwAuction.Infrastructure.csproj" />
+    <ProjectReference Include="..\NlwAuction.Domain\NlwAuction.Domain.csproj" />
+  </ItemGroup>
+</Project>
