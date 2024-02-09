@@ -1,16 +1,13 @@
-using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NlwAuction.API.Controllers;
 using NlwAuction.Application.UseCases.Interfaces.Auctions.GetCurrent;
+using NlwAuction.Domain.DTOs.Auctions.Requests;
+using NlwAuction.Domain.DTOs.Auctions.Responses;
 using NlwAuction.Domain.Entities;
 
 namespace NlwAuction.Api.Controllers;
 
-[ApiController]
-[Route("api/v1/[controller]")]
-public class AuctionController : ControllerBase
+public class AuctionController : AbstractBaseController
 {
 	private readonly IGetCurrentAuctionUseCase _getCurrentAuctionUseCase;
 
@@ -20,12 +17,13 @@ public class AuctionController : ControllerBase
 	}
 
 	[HttpGet]
-	[ProducesResponseType(typeof(Auction), StatusCodes.Status200OK)]
+	[ProducesResponseType(typeof(AuctionResponseDto), StatusCodes.Status200OK)]
 	[ProducesResponseType(StatusCodes.Status204NoContent)]
 	[ProducesResponseType(StatusCodes.Status404NotFound)]
-	public async Task<IActionResult> GetCurrentAuction() =>
+	public async Task<IActionResult> GetCurrent() =>
 		Ok(_getCurrentAuctionUseCase.Execute());
 
-	// [HttpGet]
-	// public async Task<IActionResult> Get
+	[HttpPost("")]
+	public async Task<IActionResult> Create([FromBody] AuctionRequestDto request) =>
+		Created("", "");
 }

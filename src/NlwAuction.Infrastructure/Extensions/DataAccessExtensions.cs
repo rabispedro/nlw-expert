@@ -11,12 +11,14 @@ public static class DataAccessExtensions
 {
 	public static IServiceCollection AddDataAccess(this IServiceCollection service, IConfiguration configuration)
 	{
-		// service.AddDbContext<AuctionContext>(options =>
-		// {
-		// 	options.UseNpgsql(configuration["ConnectionStrings:PersistanceDataConnection"]);
-		// });
+		Console.WriteLine($"String de Conexão: {configuration.GetConnectionString("PersistanceDataConnection")}");
+		
+		service.AddDbContext<AuctionDbContext>(options =>
+		{
+			options.UseNpgsql(configuration.GetConnectionString("PersistanceDataConnection"));
+		});
 
-		// service.AddScoped<IAuctionRepository, AuctionRepository>();
+		service.AddScoped<IAuctionRepository, AuctionRepository>();
 
 		return service;
 	}

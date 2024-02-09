@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
+using NlwAuction.API.Controllers;
 
 namespace NlwAuction.Api.Controllers;
 
-[ApiController]
-[Route("api/v1/[controller]")]
-public class ItemController : ControllerBase
+public class ItemController : AbstractBaseController
 {
 	// private readonly ICreateItem _getItemByAuctionId;
 	// private readonly IGetItemByAuctionId _getItemByAuctionId;
