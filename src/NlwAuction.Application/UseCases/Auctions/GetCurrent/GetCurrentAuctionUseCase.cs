@@ -1,18 +1,29 @@
-using NlwAuction.Application.UseCases.Interfaces;
-using NlwAuction.Application.UseCases.Interfaces.Auctions.GetCurrent;
-using NlwAuction.Domain.Entities;
+using AutoMapper;
+using NlwAuction.Domain.Dtos.Auctions.Responses;
+using NlwAuction.Domain.Interfaces.DataAccess.Repositories;
+using NlwAuction.Domain.Interfaces.UseCases.Auctions.GetCurrent;
 
 namespace NlwAuction.Application.UseCases.Auctions.GetCurrent;
 
 public class GetCurrentAuctionUseCase : IGetCurrentAuctionUseCase
 {
-	public Auction Execute()
+	private readonly IAuctionRepository _auctionRepository;
+	private readonly IMapper _mapper;
+
+	public GetCurrentAuctionUseCase(
+		IAuctionRepository auctionRepository,
+		IMapper mapper)
 	{
-		return new Auction { StartsAt = DateTime.UtcNow, EndsAt = DateTime.UtcNow.AddHours(3) };
+		ArgumentNullException.ThrowIfNull(auctionRepository);
+		ArgumentNullException.ThrowIfNull(mapper);
+
+		_auctionRepository = auctionRepository;
+		_mapper = mapper;
 	}
 
-	Task IBaseUseCase.Execute()
+	public async Task<AuctionResponseDto> Execute()
 	{
-		throw new NotImplementedException();
+		var auction = await _auctionRepository.GetCurrent();
+		return _mapper.Map<AuctionResponseDto>(auction);
 	}
 }

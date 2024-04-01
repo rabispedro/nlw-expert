@@ -8,8 +8,7 @@ public class AuctionConfiguration : IEntityTypeConfiguration<Auction>
 {
 	public void Configure(EntityTypeBuilder<Auction> builder)
 	{
-		if (builder is null)
-			throw new ArgumentNullException(nameof(builder));
+		ArgumentNullException.ThrowIfNull(builder);
 
 		builder
 			.ToTable("tbl_auction")

@@ -8,8 +8,7 @@ public class ItemConfiguration : IEntityTypeConfiguration<Item>
 {
 	public void Configure(EntityTypeBuilder<Item> builder)
 	{
-		if (builder is null)
-			throw new ArgumentNullException(nameof(builder));
+		ArgumentNullException.ThrowIfNull(builder);
 
 		builder
 			.ToTable("tbl_item")

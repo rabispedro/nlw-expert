@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Mvc.Filters;
+using NlwAuction.API.Filters;
+using NlwAuction.Application.Contexts;
 using NlwAuction.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,16 +8,25 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDataAccess(builder.Configuration);
 builder.Services.AddUseCases();
 
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+    options.LowercaseQueryStrings = true;
+});
+
+builder.Services.AddScoped<IAuthorizationFilter, AuthenticationUserAttribute>();
+builder.Services.AddSingleton<UserContext>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -24,6 +36,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.MapHealthChecks("api/v1/health-checks");
 
 app.MapControllers();
 

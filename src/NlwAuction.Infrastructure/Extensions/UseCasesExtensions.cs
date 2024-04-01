@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using NlwAuction.Application.UseCases.Auctions.GetCurrent;
-using NlwAuction.Application.UseCases.Interfaces.Auctions.GetCurrent;
+using NlwAuction.Domain.Interfaces.UseCases.Auctions.GetCurrent;
 
 namespace NlwAuction.Infrastructure.Extensions;
 

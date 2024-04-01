@@ -306,3 +306,4 @@ OpenCover/
 
 # Docker Compose files
 /database
+.vscode
